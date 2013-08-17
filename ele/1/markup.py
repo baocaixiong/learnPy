@@ -6,7 +6,7 @@ from handlers import *
 from util import *
 from rules import *
 
-class Parser:
+class Parser(object):
     def __init__(self,handler):
         self.handler = handler
         self.rules = []
@@ -33,7 +33,7 @@ class Parser:
 
 class BasicTextParser(Parser):
     def __init__(self,handler):
-        Parser.__init__(self,handler)
+        super(BasicTextParser, self).__init__(handler)
         self.addRule(ListRule())
         self.addRule(ListItemRule())
         self.addRule(TitleRule())
