@@ -14,3 +14,11 @@ def trim(string, replace = ' '):
 
 print   '  asdfasd        '
 print trim('  xxx          123')
+
+
+# import os
+# print os.environ
+
+from os import path
+
+print path.abspath(path.join(path.dirname('trim.py'), path.pardir))
