@@ -1,18 +1,15 @@
 #coding: utf-8
 
-import types
 
-x = 123
+import os 
+import sys
+from os import path
 
-def testMeethod():
-    global x
-    print x
-    x = 456
-__version = 123456
 
-class Tab(object):
-    def _get123(self):
-        print 123
-        pass
+sys.path.insert(0, path.abspath(path.join(path.dirname('test.py'))) + '/tornado')
 
+print sys.path
+import tornado
+
+print tornado.__file__
 
