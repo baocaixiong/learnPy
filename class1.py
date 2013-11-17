@@ -1,6 +1,13 @@
 #!/usr/bin/env python
 #-*-coding: utf-8 -*-
+
+
 import sys
+import web
+
+print web
+
+print sys.path
 
 
 class Page(object):
@@ -10,11 +17,18 @@ class Page(object):
         print 'create new instance'
 
     def setPage(self, page):
+        """
+
+        :param page:
+        :return:
+        """
         self.page = page
+
         return self
 
     def getPage(self):
         return self.page
+
 
 class SubPage(Page):
     pass

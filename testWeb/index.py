@@ -1,15 +1,23 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
  
-import web 
- 
-urls = ("/.*", "hello")
-app = web.application(urls, globals())
- 
-class hello:
-    def GET(self):
-        return 'Hello, world!'
- 
-if __name__ == "__main__":
-    web.wsgi.runwsgi = lambda func, addr=None: web.wsgi.runfcgi(func, addr)
-    app.run()
+import tornado.ioloop
+import tornado.web
+import settings
+
+
+
+class MainHandler(tornado.web.RequestHandler):
+    def get(self, args):
+        self.write(args)
+        self.write('hello world!')
+
+
+application = tornado.web.Application([
+    (r'/(.*)', MainHandler)
+])
+
+
+# if __name__ == '__main__':
+#     application.listen(8080)
+#     tornado.ioloop.IOLoop.instance().start()

@@ -15,7 +15,9 @@ sys.setdefaultencoding('utf-8')
 SELF_PATH = path.abspath(path.join(path.dirname('')))
 
 
-class Music163Error(IOError): pass
+class Music163Error(IOError):
+    pass
+
 
 class DownloadMusic163(object):
 
@@ -85,7 +87,8 @@ class DownloadMusic163(object):
             'password': self.hasPassword(password),
             'rememberLogin': 'true'
         }
-        loginRes = json.loads(self.post(self.loginUrl, postdata=postdata, headers=self.defaultHeaders))
+        loginRes = json.loads(
+            self.post(self.loginUrl, postdata=postdata, headers=self.defaultHeaders))
 
         if loginRes['code'] == 200:
             print '登陆成功'
@@ -99,11 +102,11 @@ class DownloadMusic163(object):
         print '欢迎您: ' + self.userInfo['nickname'] + '(' + str(self.userInfo['userId']) + ')'
         print '正在获取收藏列表...'
         userPlayList = self.getUserPlayList()
-        
+
         for i in userPlayList:
             print '正在获得收藏: ' + i['name'] + ' 的歌曲'
             self.putMp3List(i['id'])
-            
+
     def getUserPlayList(self):
         if self.userInfo != None:
             uid = self.userInfo['userId']
@@ -119,16 +122,17 @@ class DownloadMusic163(object):
             raise Music163Error
 
     def putMp3List(self, listId):
-        queryDict = {'id': listId, 'offest': '0', 'total': 'true', 'limit': '500'}
+        queryDict = {'id': listId, 'offest':
+                     '0', 'total': 'true', 'limit': '500'}
 
-        url = self.playListUrl + '?' + urllib.urlencode(queryDict).encode("utf-8")
+        url = self.playListUrl + '?' + \
+            urllib.urlencode(queryDict).encode("utf-8")
         print url
         listJson = json.loads(self.get(url, headers=self.defaultHeaders))
 
         for i in listJson['result']['tracks']:
             self.mp3List.append((i['name'], i['mp3Url']))
 
-        
 
 if __name__ == '__main__':
     dl163 = DownloadMusic163()
@@ -146,5 +150,3 @@ if __name__ == '__main__':
             f = urllib2.urlopen(mp3[1])
             with open(mp3[0].decode('utf-8') + ".mp3", "wb") as file:
                 file.write(f.read())
-
-    
